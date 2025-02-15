@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f5f5f5; }
+        .slider-container { position: relative; width: 80%; max-width: 600px; overflow: hidden; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .slides { display: flex; transition: transform 0.5s ease-in-out; }
+        .slide { min-width: 100%; }
+        img { width: 100%; height: auto; border-radius: 10px; }
+        .buttons { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; transform: translateY(-50%); }
+        .btn { background: rgba(0,0,0,0.5); color: white; border: none; padding: 10px; cursor: pointer; }
+        .btn:hover { background: rgba(0,0,0,0.8); }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <div class="slides">
+            <div class="slide"><img src="https://i.pinimg.com/736x/75/c7/50/75c750a625df2638c37d8a6d3908c99e.jpg" alt="Image 1"></div>
+            <div class="slide"><img src="https://i.pinimg.com/736x/97/c2/e9/97c2e96a4c0cc268488b0e14694ef354.jpg" alt="Image 2"></div>
+            <div class="slide"><img src="https://i.pinimg.com/736x/f9/3f/a4/f93fa4a289a773199f3bb6dd63d7b777.jpg" alt="Image 3"></div>
+        </div>
+        <div class="buttons">
+            <button class="btn" id="prev">&#10094;</button>
+            <button class="btn" id="next">&#10095;</button>
+        </div>
+    </div>
+
+    <script>
+        let index = 0;
+        const slides = document.querySelector(".slides");
+        const totalSlides = document.querySelectorAll(".slide").length;
+        
+        function moveSlide(step) {
+            index = (index + step + totalSlides) % totalSlides;
+            slides.style.transform = `translateX(-${index * 100}%)`;
+        }
+        
+        document.getElementById("prev").addEventListener("click", () => moveSlide(-1));
+        document.getElementById("next").addEventListener("click", () => moveSlide(1));
+        
+        setInterval(() => moveSlide(1), 3000); // Auto-slide every 3 seconds
+    </script>
+</body>
+</html>
